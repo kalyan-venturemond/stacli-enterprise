@@ -23,7 +23,7 @@ const HeroSection = () => {
         >
           <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight text-foreground">
             Engineering Intelligent Infrastructure for{" "}
-            <span className="text-gradient">Real-World Scale.</span>
+            <span className="text-gradient">Real-World Scale</span>
           </h1>
 
           <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed">

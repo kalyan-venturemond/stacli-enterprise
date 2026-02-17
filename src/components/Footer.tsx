@@ -1,4 +1,4 @@
-import logo from "@/assets/stacli-logo.png";
+import logo from "@/assets/stacli-logo-nobg.png";
 
 const Footer = () => {
   return (
