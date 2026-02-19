@@ -52,7 +52,7 @@ const HeroSection = () => {
             className="mt-10 flex flex-col sm:flex-row gap-4"
           >
             <button
-              onClick={() => scrollTo("/contact")}
+              onClick={() => window.open("https://cal.com/venture-mond-jsjuux/stacli-discovery-call-15-or-30-minutes", "_blank")}
               className="bg-primary text-primary-foreground px-8 py-4 rounded-lg text-base font-semibold hover:opacity-90 transition-opacity"
             >
               Book Strategy Call
