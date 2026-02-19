@@ -1,5 +1,4 @@
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
 import {
   Accordion,
   AccordionContent,
@@ -53,16 +52,14 @@ const industries = [
 ];
 
 const Industries = () => {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
-
   return (
-    <section id="industries" className="section-padding" ref={ref}>
+    <section id="industries" className="section-padding">
       <div className="max-w-7xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
         >
           <p className="text-primary text-sm font-semibold tracking-widest uppercase mb-4">Industries</p>
           <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
@@ -70,63 +67,65 @@ const Industries = () => {
           </h2>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.2 }}
-          className="mt-12"
-        >
+        <div className="mt-12">
           <Accordion type="single" collapsible className="space-y-3">
-            {industries.map((ind) => (
-              <AccordionItem
+            {industries.map((ind, i) => (
+              <motion.div
                 key={ind.name}
-                value={ind.name}
-                className="glass-card px-8 border-border/50 data-[state=open]:border-primary/30 transition-colors duration-300"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 * i }}
               >
-                <AccordionTrigger className="font-display text-lg font-semibold text-foreground hover:no-underline py-6">
-                  {ind.name}
-                </AccordionTrigger>
-                <AccordionContent className="pb-8">
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div>
-                      <h4 className="text-sm font-semibold text-primary mb-3 uppercase tracking-wider">Challenges</h4>
-                      <ul className="space-y-2">
-                        {ind.challenges.map((c) => (
-                          <li key={c} className="text-sm text-muted-foreground flex items-start gap-2">
-                            <span className="w-1 h-1 rounded-full bg-muted-foreground mt-2 shrink-0" />
-                            {c}
-                          </li>
-                        ))}
-                      </ul>
+                <AccordionItem
+                  value={ind.name}
+                  className="glass-card px-8 border-border/50 data-[state=open]:border-primary/30 transition-colors duration-300"
+                >
+                  <AccordionTrigger className="font-display text-lg font-semibold text-foreground hover:no-underline py-6">
+                    {ind.name}
+                  </AccordionTrigger>
+                  <AccordionContent className="pb-8">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                      <div>
+                        <h4 className="text-sm font-semibold text-primary mb-3 uppercase tracking-wider">Challenges</h4>
+                        <ul className="space-y-2">
+                          {ind.challenges.map((c) => (
+                            <li key={c} className="text-sm text-muted-foreground flex items-start gap-2">
+                              <span className="w-1 h-1 rounded-full bg-muted-foreground mt-2 shrink-0" />
+                              {c}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div>
+                        <h4 className="text-sm font-semibold text-primary mb-3 uppercase tracking-wider">What We Deploy</h4>
+                        <ul className="space-y-2">
+                          {ind.deploy.map((d) => (
+                            <li key={d} className="text-sm text-muted-foreground flex items-start gap-2">
+                              <span className="w-1 h-1 rounded-full bg-primary mt-2 shrink-0" />
+                              {d}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div>
+                        <h4 className="text-sm font-semibold text-primary mb-3 uppercase tracking-wider">Impact</h4>
+                        <ul className="space-y-2">
+                          {ind.impact.map((im) => (
+                            <li key={im} className="text-sm text-muted-foreground flex items-start gap-2">
+                              <span className="w-1 h-1 rounded-full bg-primary mt-2 shrink-0" />
+                              {im}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="text-sm font-semibold text-primary mb-3 uppercase tracking-wider">What We Deploy</h4>
-                      <ul className="space-y-2">
-                        {ind.deploy.map((d) => (
-                          <li key={d} className="text-sm text-muted-foreground flex items-start gap-2">
-                            <span className="w-1 h-1 rounded-full bg-primary mt-2 shrink-0" />
-                            {d}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    <div>
-                      <h4 className="text-sm font-semibold text-primary mb-3 uppercase tracking-wider">Impact</h4>
-                      <ul className="space-y-2">
-                        {ind.impact.map((im) => (
-                          <li key={im} className="text-sm text-muted-foreground flex items-start gap-2">
-                            <span className="w-1 h-1 rounded-full bg-primary mt-2 shrink-0" />
-                            {im}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </AccordionContent>
-              </AccordionItem>
+                  </AccordionContent>
+                </AccordionItem>
+              </motion.div>
             ))}
           </Accordion>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -1,8 +1,15 @@
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import heroBg from "@/assets/hero-bg.jpg";
 
 const HeroSection = () => {
+  const navigate = useNavigate();
   const scrollTo = (id: string) => {
+    if (id.startsWith("/")) {
+      navigate(id);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
     document.querySelector(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
@@ -15,24 +22,37 @@ const HeroSection = () => {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 lg:px-24 pt-32 pb-20">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="max-w-4xl"
-        >
-          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight text-foreground">
+        <div className="max-w-4xl">
+          <motion.h1
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight text-foreground"
+          >
             Engineering Intelligent Infrastructure for{" "}
             <span className="text-gradient">Real-World Scale</span>
-          </h1>
+          </motion.h1>
 
-          <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed">
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
+            className="mt-6 text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed"
+          >
             AI agents, automation systems, and enterprise platforms designed to eliminate operational friction and accelerate execution.
-          </p>
+          </motion.p>
 
-          <div className="mt-10 flex flex-col sm:flex-row gap-4">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, ease: "easeOut", delay: 0.2 }}
+            className="mt-10 flex flex-col sm:flex-row gap-4"
+          >
             <button
-              onClick={() => scrollTo("#contact")}
+              onClick={() => scrollTo("/contact")}
               className="bg-primary text-primary-foreground px-8 py-4 rounded-lg text-base font-semibold hover:opacity-90 transition-opacity"
             >
               Book Strategy Call
@@ -43,14 +63,15 @@ const HeroSection = () => {
             >
               Explore Capabilities
             </button>
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
 
         {/* Trust strip */}
         <motion.div
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6, duration: 0.8 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4, ease: "easeOut", delay: 0.3 }}
           className="mt-20 flex flex-wrap gap-x-8 gap-y-3 text-sm text-muted-foreground"
         >
           {["Enterprise-Grade", "Production-Ready", "Secure", "Measurable ROI"].map((item) => (

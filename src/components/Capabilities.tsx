@@ -1,5 +1,4 @@
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
 import { Bot, Database, Cloud, BrainCircuit } from "lucide-react";
 
 const capabilities = [
@@ -26,16 +25,14 @@ const capabilities = [
 ];
 
 const Capabilities = () => {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
-
   return (
-    <section id="capabilities" className="section-padding" ref={ref}>
+    <section id="capabilities" className="section-padding">
       <div className="max-w-7xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
         >
           <p className="text-primary text-sm font-semibold tracking-widest uppercase mb-4">Capabilities</p>
           <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
@@ -47,9 +44,11 @@ const Capabilities = () => {
           {capabilities.map((cap, i) => (
             <motion.div
               key={cap.title}
-              initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.15 * i }}
+              initial={{ opacity: 0, y: 8 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 * i }}
+              whileHover={{ scale: 1.02 }}
               className="glass-card p-8 md:p-10 hover:border-primary/30 transition-colors duration-300 group"
             >
               <cap.icon className="w-10 h-10 text-primary mb-6 group-hover:scale-110 transition-transform duration-300" />

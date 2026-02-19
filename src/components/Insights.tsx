@@ -1,5 +1,4 @@
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
 const articles = [
@@ -10,16 +9,14 @@ const articles = [
 ];
 
 const Insights = () => {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
-
   return (
-    <section id="insights" className="section-padding" ref={ref}>
+    <section id="insights" className="section-padding">
       <div className="max-w-7xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
         >
           <p className="text-primary text-sm font-semibold tracking-widest uppercase mb-4">Insights</p>
           <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
@@ -31,9 +28,11 @@ const Insights = () => {
           {articles.map((a, i) => (
             <motion.article
               key={a.title}
-              initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.1 * i }}
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 * i }}
+              whileHover={{ y: -4 }}
               className="glass-card p-8 group hover:border-primary/30 transition-colors duration-300 cursor-pointer"
             >
               <h3 className="font-display text-xl font-semibold text-foreground mb-3">{a.title}</h3>

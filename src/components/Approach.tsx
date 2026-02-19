@@ -1,5 +1,4 @@
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
 import { Search, PenTool, Rocket, TrendingUp } from "lucide-react";
 
 const steps = [
@@ -10,16 +9,14 @@ const steps = [
 ];
 
 const Approach = () => {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
-
   return (
-    <section id="approach" className="section-padding" ref={ref}>
+    <section id="approach" className="section-padding">
       <div className="max-w-7xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
         >
           <p className="text-primary text-sm font-semibold tracking-widest uppercase mb-4">Approach</p>
           <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
@@ -31,9 +28,10 @@ const Approach = () => {
           {steps.map((step, i) => (
             <motion.div
               key={step.title}
-              initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.15 * i }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, ease: "easeOut", delay: 0.15 * i }}
               className="relative glass-card p-8 group hover:border-primary/30 transition-colors duration-300"
             >
               <span className="font-display text-5xl font-bold text-primary/10 absolute top-4 right-6">{step.num}</span>

@@ -1,5 +1,4 @@
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
 
 const metrics = [
   { value: "30–40%", label: "Manual effort reduction" },
@@ -8,16 +7,14 @@ const metrics = [
 ];
 
 const Impact = () => {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
-
   return (
-    <section id="impact" className="section-padding" ref={ref}>
+    <section id="impact" className="section-padding">
       <div className="max-w-7xl mx-auto text-center">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
         >
           <p className="text-primary text-sm font-semibold tracking-widest uppercase mb-4">Impact</p>
           <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
@@ -29,9 +26,10 @@ const Impact = () => {
           {metrics.map((m, i) => (
             <motion.div
               key={m.label}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={inView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.6, delay: 0.15 * i }}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, ease: "easeOut", delay: 0.15 * i }}
               className="glass-card p-10"
             >
               <p className="font-display text-5xl md:text-6xl font-bold text-gradient">{m.value}</p>
@@ -42,8 +40,9 @@ const Impact = () => {
 
         <motion.p
           initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ delay: 0.8 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4, ease: "easeOut", delay: 0.5 }}
           className="mt-12 text-muted-foreground text-lg"
         >
           Enterprise-level execution. Measurable outcomes.
