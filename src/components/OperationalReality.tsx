@@ -16,10 +16,10 @@ const OperationalReality = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4, ease: "easeOut" }}
-          className="font-display text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-foreground max-w-4xl"
+          className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-foreground max-w-4xl"
         >
-          Most Organizations Don't Have a Technology Problem{" "}
-          <span className="text-gradient">They Have a Coordination Problem</span>
+          Most Organizations Don't Have a Technology Problem.
+          <span className="text-primary block mt-2">They Have a Coordination Problem.</span>
         </motion.h2>
 
         <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
