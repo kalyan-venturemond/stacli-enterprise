@@ -52,7 +52,9 @@ const Footer = () => {
                   <img src={logo} alt="STACLI" className="h-10 w-10" />
                   <span className="font-display text-2xl font-bold text-foreground">STACLI</span>
                 </div>
-                <span className="text-xs font-semibold tracking-widest text-[#10b981] uppercase">A Venturemond Company</span>
+                <a href="https://www.venturemond.com/" target="_blank" rel="noopener noreferrer" className="text-xs font-semibold tracking-widest text-[#10b981] hover:text-[#0b8258] transition-colors uppercase inline-block">
+                  A Venturemond Company
+                </a>
               </div>
               <p className="text-muted-foreground leading-relaxed max-w-sm mt-4">
                 AI agents, automation systems, and enterprise platforms designed to eliminate operational friction and accelerate execution.

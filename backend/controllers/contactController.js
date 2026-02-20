@@ -1,42 +1,43 @@
 const Contact = require('../models/Contact');
 const transporter = require('../utils/mailer');
+const path = require('path');
 
 exports.submitContact = async (req, res) => {
-    const { name, email, company, interest, service, projectBrief, budget, timeline } = req.body;
+  const { name, email, company, interest, service, projectBrief, budget, timeline } = req.body;
 
-    // Validate required fields
-    if (!name || !email || !interest || !service || !projectBrief) {
-        return res.status(400).json({ success: false, message: 'Missing required fields' });
-    }
+  // Validate required fields
+  if (!name || !email || !interest || !service || !projectBrief) {
+    return res.status(400).json({ success: false, message: 'Missing required fields' });
+  }
 
-    try {
-        // 1. Save to MongoDB
-        const contact = new Contact({
-            name,
-            email,
-            company,
-            interest,
-            service,
-            projectBrief,
-            budget,
-            timeline
-        });
+  try {
+    // 1. Save to MongoDB
+    const contact = new Contact({
+      name,
+      email,
+      company,
+      interest,
+      service,
+      projectBrief,
+      budget,
+      timeline
+    });
 
-        await contact.save();
-        console.log(`✅ Stacli contact saved to database: ${contact._id}`);
+    await contact.save();
+    console.log(`✅ Stacli contact saved to database: ${contact._id}`);
 
-        // Email Configuration & Branding
-        const adminEmail = process.env.ADMIN_EMAIL_ADDRESS || 'hello@stacli.com';
-        const fromEmail = process.env.FROM_EMAIL_ADDRESS || process.env.SMTP_USER || 'hello@stacli.com';
-        const stacliGreen = '#10b981';
+    // Email Configuration & Branding
+    const stacliGreen = '#10b981';
+    const senderEmail = process.env.SMTP_USER;
 
-        // 2. Construct Email Content (HTML) - TEAM NOTIFICATION
-        const adminEmailHtml = `
+    // 2. Construct Email Content (HTML) - TEAM NOTIFICATION
+    const adminEmailHtml = `
           <div style="font-family: Arial, sans-serif; max-width:600px; margin:0 auto; border:2px solid ${stacliGreen}; border-radius:8px; overflow:hidden; background:#ffffff;">
             
             <!-- Header -->
             <div style="background:#0a0a0a; padding:20px; text-align:center;">
-              <h1 style="color:#ffffff; margin:0; font-size:28px; letter-spacing:3px;">STACLI</h1>
+              <img src="cid:staclilogo" alt="STACLI Logo" style="height: 40px; vertical-align: middle; margin-right: 15px;" />
+              <span style="color:#ffffff; font-size:28px; font-weight:bold; letter-spacing:3px; vertical-align: middle; font-family: Arial, sans-serif;">STACLI</span>
             </div>
 
             <!-- Body -->
@@ -67,30 +68,36 @@ exports.submitContact = async (req, res) => {
           </div>
         `;
 
-        // SEND ADMIN EMAIL (Background - Fire and Forget)
-        const adminMailOptions = {
-            from: `"Stacli Web" <${fromEmail}>`,
-            to: adminEmail,
-            subject: `New Inquiry from ${name} (${company || 'Individual'})`,
-            html: adminEmailHtml
-        };
+    // SEND ADMIN EMAIL (Background - Fire and Forget)
+    const adminMailOptions = {
+      from: `"Stacli Web" <${senderEmail}>`,
+      to: senderEmail,
+      subject: `New Inquiry from ${name} (${company || 'Individual'})`,
+      html: adminEmailHtml,
+      attachments: [{
+        filename: 'stacli-logo.png',
+        path: path.join(__dirname, '../../src/assets/stacli-logo-nobg.png'),
+        cid: 'staclilogo'
+      }]
+    };
 
-        transporter.sendMail(adminMailOptions)
-            .then(() => console.log('✅ Admin email sent via SMTP'))
-            .catch(err => console.error('⚠️ Admin SMTP failed:', err));
+    transporter.sendMail(adminMailOptions)
+      .then(() => console.log('✅ Admin email sent via SMTP'))
+      .catch(err => console.error('⚠️ Admin SMTP failed:', err));
 
-        // 3. Send Confirmation Email to User
-        if (email) {
-            const userMailOptions = {
-                from: `"Stacli" <${fromEmail}>`,
-                to: email,
-                subject: `Thanks for Reaching Out to Stacli`,
-                html: `
+    // 3. Send Confirmation Email to User
+    if (email) {
+      const userMailOptions = {
+        from: `"Stacli" <${senderEmail}>`,
+        to: email,
+        subject: `Thanks for Reaching Out to Stacli`,
+        html: `
                   <div style="font-family: Arial, sans-serif; max-width:600px; margin:0 auto; border:2px solid ${stacliGreen}; border-radius:8px; overflow:hidden; background:#ffffff;">
                     
                     <!-- Header -->
                     <div style="background:#0a0a0a; padding:20px; text-align:center;">
-                      <h1 style="color:#ffffff; margin:0; font-size:28px; letter-spacing:3px;">STACLI</h1>
+                      <img src="cid:staclilogo" alt="STACLI Logo" style="height: 40px; vertical-align: middle; margin-right: 15px;" />
+                      <span style="color:#ffffff; font-size:28px; font-weight:bold; letter-spacing:3px; vertical-align: middle; font-family: Arial, sans-serif;">STACLI</span>
                     </div>
 
                     <!-- Body -->
@@ -115,8 +122,8 @@ exports.submitContact = async (req, res) => {
                     <div style="background:#f4f4f4; padding:20px; text-align:left;">
                       <p style="margin:6px 0; font-weight:bold;">Stacli Engineering Team</p>
                       <p style="margin:6px 0;">
-                        <a href="mailto:${fromEmail}" style="color:${stacliGreen}; text-decoration:none;">
-                          ${fromEmail}
+                        <a href="mailto:${senderEmail}" style="color:${stacliGreen}; text-decoration:none;">
+                          ${senderEmail}
                         </a>
                       </p>
                       <p style="margin:6px 0;">
@@ -126,27 +133,32 @@ exports.submitContact = async (req, res) => {
                       </p>
                     </div>
                   </div>
-                `
-            };
+                `,
+        attachments: [{
+          filename: 'stacli-logo.png',
+          path: path.join(__dirname, '../../src/assets/stacli-logo-nobg.png'),
+          cid: 'staclilogo'
+        }]
+      };
 
-            transporter.sendMail(userMailOptions)
-                .then(() => console.log('✅ User confirmation email sent'))
-                .catch(err => console.error('⚠️ User SMTP failed:', err));
-        }
-
-        // Respond immediately to Frontend
-        res.status(200).json({
-            success: true,
-            message: 'Inquiry received successfully!',
-            contactId: contact._id
-        });
-
-    } catch (error) {
-        console.error('❌ Database/Server Error:', error);
-        res.status(500).json({
-            success: false,
-            message: 'Failed to process inquiry',
-            error: error.message
-        });
+      transporter.sendMail(userMailOptions)
+        .then(() => console.log('✅ User confirmation email sent'))
+        .catch(err => console.error('⚠️ User SMTP failed:', err));
     }
+
+    // Respond immediately to Frontend
+    res.status(200).json({
+      success: true,
+      message: 'Inquiry received successfully!',
+      contactId: contact._id
+    });
+
+  } catch (error) {
+    console.error('❌ Database/Server Error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to process inquiry',
+      error: error.message
+    });
+  }
 };

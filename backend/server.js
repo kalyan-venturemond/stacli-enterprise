@@ -4,6 +4,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const connectDB = require('./config/db');
 const contactRoutes = require('./routes/email');
+const geoRoutes = require('./routes/geo');
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 // Routes
 // Using /api as base URL exactly like VentureMond
 app.use('/api', contactRoutes);
+app.use('/api/geo', geoRoutes);
 
 // General Error Handler
 app.use((err, req, res, next) => {

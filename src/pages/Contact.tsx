@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { motion, AnimatePresence } from "framer-motion";
-import { Mail, MapPin, Linkedin, CheckCircle2 } from "lucide-react";
+import { Mail, MapPin, Linkedin, CheckCircle2, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import {
     Select,
     SelectContent,
@@ -14,14 +16,48 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 
+const INTEREST_OPTIONS: Record<string, string[]> = {
+    "AI Strategy & Implementation": [
+        "Automation roadmap",
+        "Workflow redesign",
+        "Operational transformation planning"
+    ],
+    "AI Agents & Autonomous Workflows": [
+        "Customer & partner AI agents",
+        "Exception handling automation",
+        "Event-triggered actions",
+        "Intelligent alerts"
+    ],
+    "Data Engineering & Orchestration": [
+        "Real-time data pipelines",
+        "ERP / CRM integration",
+        "API-first architecture",
+        "Event-driven systems"
+    ],
+    "Infrastructure & Platform Engineering": [
+        "Cloud-native systems",
+        "Secure deployments",
+        "High-availability backend",
+        "Performance optimization"
+    ]
+};
+
+const baseTiers = [
+    { min: 0, max: 2000 },
+    { min: 2000, max: 10000 },
+    { min: 10000, max: 50000 },
+    { min: 50000, max: null }
+];
+
 const Contact = () => {
     // Form States
     const [formData, setFormData] = useState({
         name: "",
         email: "",
         company: "",
-        interest: "",
-        service: "",
+        interest: [] as string[],
+        service: [] as string[],
+        otherServiceDescription: "",
         projectBrief: "",
         budget: "",
         timeline: ""
@@ -32,13 +68,82 @@ const Contact = () => {
     const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
     const [errorMessage, setErrorMessage] = useState("");
 
+    // Geo State
+    const [geoConfig, setGeoConfig] = useState({
+        currency: 'USD',
+        rate: 1
+    });
+
+    useEffect(() => {
+        const fetchGeo = async () => {
+            try {
+                const res = await fetch('/api/geo?t=' + Date.now());
+                if (res.ok) {
+                    const data = await res.json();
+                    setGeoConfig({
+                        currency: data.currency || 'USD',
+                        rate: data.rate || 1
+                    });
+                }
+            } catch (e) {
+                console.error('Geo fetch failed', e);
+            }
+        };
+        fetchGeo();
+    }, []);
+
+    const formatMoney = (usdAmount: number) => {
+        let val = usdAmount * geoConfig.rate;
+
+        if (val > 100000) val = Math.round(val / 10000) * 10000;
+        else if (val > 1000) val = Math.round(val / 1000) * 1000;
+
+        try {
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: geoConfig.currency,
+                maximumFractionDigits: 0,
+            }).format(val);
+        } catch (e) {
+            return String(val);
+        }
+    };
+
     const handleChange = (field: string, value: string) => {
         setFormData(prev => ({ ...prev, [field]: value }));
     };
 
+    const toggleArrayItem = (field: 'interest' | 'service', item: string) => {
+        setFormData(prev => {
+            const currentArray = prev[field] as string[];
+            const isSelected = currentArray.includes(item);
+
+            const newArray = isSelected
+                ? currentArray.filter(i => i !== item)
+                : [...currentArray, item];
+
+            // If an interest is removed, remove any services that are no longer valid
+            let finalServices = prev.service;
+            if (field === 'interest') {
+                const validServices = [...new Set(newArray.flatMap(i => INTEREST_OPTIONS[i] || [])), "Other"];
+                finalServices = finalServices.filter(s => validServices.includes(s));
+            } else {
+                finalServices = newArray;
+            }
+
+            return {
+                ...prev,
+                [field]: newArray,
+                ...(field === 'interest' ? { service: finalServices } : {})
+            };
+        });
+    };
+
     const handleSubmit = async () => {
+        const isOtherService = formData.service.includes("Other");
+
         // Basic Validation
-        if (!formData.name || !formData.email || !formData.interest || !formData.service || !formData.projectBrief) {
+        if (!formData.name || !formData.email || formData.interest.length === 0 || formData.service.length === 0 || (isOtherService && !formData.otherServiceDescription) || !formData.projectBrief) {
             setSubmitStatus('error');
             setErrorMessage("Please fill in all required fields.");
             return;
@@ -48,10 +153,17 @@ const Contact = () => {
         setSubmitStatus('idle');
 
         try {
+            const payload = {
+                ...formData,
+                interest: formData.interest.join(", "),
+                service: formData.service.map(s => s === "Other" ? `Other: ${formData.otherServiceDescription}` : s).join(", "),
+                projectBrief: formData.projectBrief
+            };
+
             const response = await fetch("http://localhost:3002/api/email", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(formData)
+                body: JSON.stringify(payload)
             });
 
             const data = await response.json();
@@ -155,34 +267,72 @@ const Contact = () => {
 
                                         <div>
                                             <label className="text-sm font-medium text-muted-foreground mb-1.5 block">What are you interested in?*</label>
-                                            <Select value={formData.interest} onValueChange={(val) => handleChange('interest', val)}>
-                                                <SelectTrigger className="bg-card/50 border-input focus:ring-primary/20">
-                                                    <SelectValue placeholder="Select options" />
-                                                </SelectTrigger>
-                                                <SelectContent>
-                                                    <SelectItem value="AI Agents">AI Agents</SelectItem>
-                                                    <SelectItem value="Workflow Automation">Workflow Automation</SelectItem>
-                                                    <SelectItem value="Data Orchestration">Data Orchestration</SelectItem>
-                                                    <SelectItem value="Enterprise Integration">Enterprise Integration</SelectItem>
-                                                    <SelectItem value="Other">Other</SelectItem>
-                                                </SelectContent>
-                                            </Select>
+                                            <Popover>
+                                                <PopoverTrigger asChild>
+                                                    <Button variant="outline" className="w-full justify-between bg-card/50 border-input font-normal hover:bg-card/50 h-10 px-3 py-2 text-left">
+                                                        <span className="truncate">
+                                                            {formData.interest.length > 0 ? formData.interest.join(", ") : <span className="text-muted-foreground">Select options</span>}
+                                                        </span>
+                                                        <ChevronDown className="h-4 w-4 opacity-50 shrink-0" />
+                                                    </Button>
+                                                </PopoverTrigger>
+                                                <PopoverContent className="w-[--radix-popover-trigger-width] p-3" align="start">
+                                                    <div className="space-y-3">
+                                                        {Object.keys(INTEREST_OPTIONS).map(interest => (
+                                                            <div key={interest} className="flex items-start space-x-3 cursor-pointer" onClick={() => toggleArrayItem("interest", interest)}>
+                                                                <Checkbox id={`interest-${interest}`} checked={formData.interest.includes(interest)} className="mt-0.5" />
+                                                                <label className="text-sm font-medium leading-tight cursor-pointer pointer-events-none">{interest}</label>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </PopoverContent>
+                                            </Popover>
                                         </div>
 
                                         <div>
                                             <label className="text-sm font-medium text-muted-foreground mb-1.5 block">Choose a Service*</label>
-                                            <Select value={formData.service} onValueChange={(val) => handleChange('service', val)}>
-                                                <SelectTrigger className="bg-card/50 border-input focus:ring-primary/20">
-                                                    <SelectValue placeholder="Select options" />
-                                                </SelectTrigger>
-                                                <SelectContent>
-                                                    <SelectItem value="Consulting & Strategy">Consulting & Strategy</SelectItem>
-                                                    <SelectItem value="Full Implementation">Full Implementation</SelectItem>
-                                                    <SelectItem value="Platform Access">Platform Access</SelectItem>
-                                                    <SelectItem value="Partnership">Partnership</SelectItem>
-                                                </SelectContent>
-                                            </Select>
+                                            <Popover>
+                                                <PopoverTrigger asChild>
+                                                    <Button variant="outline" disabled={formData.interest.length === 0} className="w-full justify-between bg-card/50 border-input font-normal hover:bg-card/50 h-10 px-3 py-2 text-left disabled:opacity-50">
+                                                        <span className="truncate">
+                                                            {formData.service.length > 0 ? formData.service.join(", ") : <span className="text-muted-foreground">{formData.interest.length > 0 ? "Select services" : "Select an interest first"}</span>}
+                                                        </span>
+                                                        <ChevronDown className="h-4 w-4 opacity-50 shrink-0" />
+                                                    </Button>
+                                                </PopoverTrigger>
+                                                <PopoverContent className="w-[--radix-popover-trigger-width] p-3 max-h-[300px] overflow-y-auto" align="start">
+                                                    <div className="space-y-3">
+                                                        {[...new Set(formData.interest.flatMap(i => INTEREST_OPTIONS[i] || [])), "Other"].map(service => (
+                                                            <div key={service} className="flex items-start space-x-3 cursor-pointer" onClick={() => toggleArrayItem("service", service)}>
+                                                                <Checkbox id={`service-${service}`} checked={formData.service.includes(service)} className="mt-0.5" />
+                                                                <label className="text-sm font-medium leading-tight cursor-pointer pointer-events-none">{service}</label>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </PopoverContent>
+                                            </Popover>
                                         </div>
+
+                                        <AnimatePresence>
+                                            {formData.service.includes("Other") && (
+                                                <motion.div
+                                                    initial={{ opacity: 0, height: 0 }}
+                                                    animate={{ opacity: 1, height: "auto" }}
+                                                    exit={{ opacity: 0, height: 0 }}
+                                                    className="overflow-hidden"
+                                                >
+                                                    <div className="pt-2 pb-1">
+                                                        <label className="text-sm font-medium text-muted-foreground mb-1.5 block">Please specify the service*</label>
+                                                        <Input
+                                                            placeholder="Describe the service you are looking for..."
+                                                            value={formData.otherServiceDescription}
+                                                            onChange={(e) => handleChange('otherServiceDescription', e.target.value)}
+                                                            className="bg-card/50 border-input focus:border-primary/50"
+                                                        />
+                                                    </div>
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
 
                                         <div>
                                             <label className="text-sm font-medium text-muted-foreground mb-1.5 block">Brief About Your Project*</label>
@@ -202,10 +352,21 @@ const Contact = () => {
                                                         <SelectValue placeholder="Select Budget Range" />
                                                     </SelectTrigger>
                                                     <SelectContent>
-                                                        <SelectItem value="< $10k">&lt; $10k</SelectItem>
-                                                        <SelectItem value="$10k - $50k">$10k - $50k</SelectItem>
-                                                        <SelectItem value="$50k - $100k">$50k - $100k</SelectItem>
-                                                        <SelectItem value="$100k+">$100k+</SelectItem>
+                                                        {baseTiers.map((tier, index) => {
+                                                            let label = "";
+                                                            if (tier.min === 0) {
+                                                                label = `Under ${formatMoney(tier.max!)}`;
+                                                            } else if (tier.max === null) {
+                                                                label = `${formatMoney(tier.min)}+`;
+                                                            } else {
+                                                                label = `${formatMoney(tier.min)} – ${formatMoney(tier.max)}`;
+                                                            }
+                                                            return (
+                                                                <SelectItem key={index} value={label}>
+                                                                    {label}
+                                                                </SelectItem>
+                                                            );
+                                                        })}
                                                     </SelectContent>
                                                 </Select>
                                             </div>
