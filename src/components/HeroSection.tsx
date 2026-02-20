@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import heroBg from "@/assets/hero-bg.jpg";
+import RevealOnScroll from "./RevealOnScroll";
+
 
 const HeroSection = () => {
   const navigate = useNavigate();
@@ -17,73 +18,44 @@ const HeroSection = () => {
     <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0">
-        <img src={heroBg} alt="" className="w-full h-full object-cover opacity-40" />
+        <img src="/home/bg1.gif" alt="Background Animation" className="w-full h-full object-cover opacity-40" />
         <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 lg:px-24 pt-32 pb-20">
-        <div className="max-w-4xl">
-          <motion.h1
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
-            className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight text-foreground"
-          >
+      <div className="relative z-10 w-full max-w-5xl mx-auto px-6 md:px-12 pt-32 pb-20 flex flex-col items-center text-center">
+        <RevealOnScroll>
+          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight text-foreground drop-shadow-sm">
             Engineering Intelligent Infrastructure for{" "}
             <span className="text-gradient">Real-World Scale</span>
-          </motion.h1>
+          </h1>
+        </RevealOnScroll>
 
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
-            className="mt-6 text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed"
-          >
+        <RevealOnScroll delay={0.1}>
+          <p className="mt-8 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             AI agents, automation systems, and enterprise platforms designed to eliminate operational friction and accelerate execution.
-          </motion.p>
+          </p>
+        </RevealOnScroll>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, ease: "easeOut", delay: 0.2 }}
-            className="mt-10 flex flex-col sm:flex-row gap-4"
-          >
+        <RevealOnScroll delay={0.2}>
+          <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-5">
             <button
               onClick={() => window.open("https://cal.com/venture-mond-jsjuux/stacli-discovery-call-15-or-30-minutes", "_blank")}
-              className="bg-primary text-primary-foreground px-8 py-4 rounded-lg text-base font-semibold hover:opacity-90 transition-opacity"
+              className="bg-primary text-primary-foreground px-10 py-4 rounded-full text-base font-semibold hover:opacity-90 transition-all hover:scale-105 shadow-lg shadow-primary/20"
             >
               Book Strategy Call
             </button>
             <button
               onClick={() => scrollTo("#capabilities")}
-              className="border border-border text-foreground px-8 py-4 rounded-lg text-base font-semibold hover:bg-secondary transition-colors"
+              className="px-10 py-4 rounded-full text-base font-semibold text-foreground border border-white/10 hover:bg-white/5 transition-all hover:scale-105 backdrop-blur-sm"
             >
               Explore Capabilities
             </button>
-          </motion.div>
-        </div>
+          </div>
+        </RevealOnScroll>
 
-        {/* Trust strip */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4, ease: "easeOut", delay: 0.3 }}
-          className="mt-20 flex flex-wrap gap-x-8 gap-y-3 text-sm text-muted-foreground"
-        >
-          {["Enterprise-Grade", "Production-Ready", "Secure", "Measurable ROI"].map((item) => (
-            <span key={item} className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-              {item}
-            </span>
-          ))}
-        </motion.div>
+
       </div>
     </section>
   );
 };
-
 export default HeroSection;

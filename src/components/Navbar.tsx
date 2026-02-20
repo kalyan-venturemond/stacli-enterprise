@@ -79,7 +79,7 @@ const Navbar = () => {
             </button>
           ))}
           <button
-            onClick={() => handleClick("/contact")}
+            onClick={() => window.open("https://cal.com/venture-mond-jsjuux/stacli-discovery-call-15-or-30-minutes", "_blank")}
             className="bg-primary text-primary-foreground px-5 py-2.5 rounded-lg text-sm font-medium hover:opacity-90 transition-opacity"
           >
             Book a Call
@@ -109,7 +109,7 @@ const Navbar = () => {
             </button>
           ))}
           <button
-            onClick={() => handleClick("/contact")}
+            onClick={() => window.open("https://cal.com/venture-mond-jsjuux/stacli-discovery-call-15-or-30-minutes", "_blank")}
             className="mt-2 w-full bg-primary text-primary-foreground px-5 py-2.5 rounded-lg text-sm font-medium"
           >
             Book a Call
