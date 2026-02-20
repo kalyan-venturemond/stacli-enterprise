@@ -2,7 +2,7 @@
 import RevealOnScroll from "./RevealOnScroll";
 import { useLocation, useNavigate } from "react-router-dom";
 import logo from "@/assets/stacli-logo-nobg.png";
-import { Mail, MapPin, Linkedin, Facebook, Instagram } from "lucide-react";
+import { Mail, MapPin, Linkedin, Facebook, Instagram, Phone } from "lucide-react";
 
 const Footer = () => {
   const location = useLocation();
@@ -105,21 +105,27 @@ const Footer = () => {
                   </a>
                 </div>
                 <div className="flex items-start gap-3">
+                  <Phone className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                  <a href="tel:+916302458752" className="text-muted-foreground hover:text-primary transition-colors text-sm">
+                    +91 6302458752
+                  </a>
+                </div>
+                <div className="flex items-start gap-3">
                   <MapPin className="w-5 h-5 text-primary shrink-0 mt-0.5" />
                   <p className="text-muted-foreground text-sm">
                     4th Floor, Bizness Square, Hitec City, Hyderabad – 500084
                   </p>
                 </div>
                 <div className="flex gap-4 pt-2">
-                  <a href="#" className="text-primary hover:text-primary/80 transition-colors"><Linkedin size={20} /></a>
-                  <a href="#" className="text-primary hover:text-primary/80 transition-colors"><Instagram size={20} /></a>
-                  <a href="#" className="text-primary hover:text-primary/80 transition-colors"><Facebook size={20} /></a>
-                  <a href="#" className="text-primary hover:text-primary/80 transition-colors">
+                  <button type="button" onClick={(e) => e.preventDefault()} className="text-primary hover:text-primary/80 transition-colors cursor-default"><Linkedin size={20} /></button>
+                  <button type="button" onClick={(e) => e.preventDefault()} className="text-primary hover:text-primary/80 transition-colors cursor-default"><Instagram size={20} /></button>
+                  <button type="button" onClick={(e) => e.preventDefault()} className="text-primary hover:text-primary/80 transition-colors cursor-default"><Facebook size={20} /></button>
+                  <button type="button" onClick={(e) => e.preventDefault()} className="text-primary hover:text-primary/80 transition-colors cursor-default">
                     <svg role="img" viewBox="0 0 24 24" fill="currentColor" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
                       <title>X</title>
                       <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
                     </svg>
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>

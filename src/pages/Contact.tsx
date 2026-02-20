@@ -77,7 +77,7 @@ const Contact = () => {
     useEffect(() => {
         const fetchGeo = async () => {
             try {
-                const res = await fetch('/api/geo?t=' + Date.now());
+                const res = await fetch('http://localhost:3002/api/geo?t=' + Date.now());
                 if (res.ok) {
                     const data = await res.json();
                     setGeoConfig({
@@ -220,17 +220,11 @@ const Contact = () => {
                                 {submitStatus === 'success' ? (
                                     <motion.div
                                         key="success"
-                                        initial={{ opacity: 0, scale: 0.95 }}
-                                        animate={{ opacity: 1, scale: 1 }}
-                                        className="bg-primary/10 border border-primary/20 rounded-xl p-8 flex flex-col items-center justify-center text-center space-y-4"
+                                        initial={{ opacity: 0, y: 10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        className="text-primary text-lg"
                                     >
-                                        <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center text-primary mb-4">
-                                            <CheckCircle2 size={32} />
-                                        </div>
-                                        <h3 className="text-2xl font-bold text-foreground">Inquiry Received</h3>
-                                        <p className="text-muted-foreground max-w-md">
-                                            Thank you, {formData.name}. Our engineering team is reviewing your project brief and will be in touch shortly.
-                                        </p>
+                                        Form Submitted Successfully. We will reach out to you within 48 hours.
                                     </motion.div>
                                 ) : (
                                     <motion.div key="form" exit={{ opacity: 0 }} className="space-y-4">

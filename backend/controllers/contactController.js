@@ -35,9 +35,17 @@ exports.submitContact = async (req, res) => {
           <div style="font-family: Arial, sans-serif; max-width:600px; margin:0 auto; border:2px solid ${stacliGreen}; border-radius:8px; overflow:hidden; background:#ffffff;">
             
             <!-- Header -->
-            <div style="background:#0a0a0a; padding:20px; text-align:center;">
-              <img src="cid:staclilogo" alt="STACLI Logo" style="height: 40px; vertical-align: middle; margin-right: 15px;" />
-              <span style="color:#ffffff; font-size:28px; font-weight:bold; letter-spacing:3px; vertical-align: middle; font-family: Arial, sans-serif;">STACLI</span>
+            <div style="background:#0a0a0a; padding:20px 0; text-align:center;">
+              <table align="center" border="0" cellpadding="0" cellspacing="0" style="margin: 0 auto; background:#0a0a0a;">
+                <tr>
+                  <td style="vertical-align: middle; padding-right: 15px;">
+                    <img src="cid:staclilogo" alt="STACLI Logo" style="height: 40px; display: block;" />
+                  </td>
+                  <td style="vertical-align: middle;">
+                    <span style="color:#ffffff; font-size:28px; font-weight:bold; letter-spacing:3px; font-family: Arial, sans-serif;">STACLI</span>
+                  </td>
+                </tr>
+              </table>
             </div>
 
             <!-- Body -->
@@ -62,7 +70,7 @@ exports.submitContact = async (req, res) => {
 
             <!-- Footer -->
             <div style="background:#f4f4f4; padding:14px; text-align:center; font-size:12px;">
-              <p style="margin:4px;">Stacli Internal Notification (A VentureMond Company)</p>
+              <p style="margin:4px;">Stacli Internal Notification</p>
               <a href="https://stacli.com" style="color:${stacliGreen}; text-decoration: none;">www.stacli.com</a>
             </div>
           </div>
@@ -95,9 +103,17 @@ exports.submitContact = async (req, res) => {
                   <div style="font-family: Arial, sans-serif; max-width:600px; margin:0 auto; border:2px solid ${stacliGreen}; border-radius:8px; overflow:hidden; background:#ffffff;">
                     
                     <!-- Header -->
-                    <div style="background:#0a0a0a; padding:20px; text-align:center;">
-                      <img src="cid:staclilogo" alt="STACLI Logo" style="height: 40px; vertical-align: middle; margin-right: 15px;" />
-                      <span style="color:#ffffff; font-size:28px; font-weight:bold; letter-spacing:3px; vertical-align: middle; font-family: Arial, sans-serif;">STACLI</span>
+                    <div style="background:#0a0a0a; padding:20px 0; text-align:center;">
+                      <table align="center" border="0" cellpadding="0" cellspacing="0" style="margin: 0 auto; background:#0a0a0a;">
+                        <tr>
+                          <td style="vertical-align: middle; padding-right: 15px;">
+                            <img src="cid:staclilogo" alt="STACLI Logo" style="height: 40px; display: block;" />
+                          </td>
+                          <td style="vertical-align: middle;">
+                            <span style="color:#ffffff; font-size:28px; font-weight:bold; letter-spacing:3px; font-family: Arial, sans-serif;">STACLI</span>
+                          </td>
+                        </tr>
+                      </table>
                     </div>
 
                     <!-- Body -->
