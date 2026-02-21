@@ -13,7 +13,7 @@ connectDB();
 
 // Middlewares
 app.use(helmet());
-app.use(cors({ origin: process.env.FRONTEND_URL || '*' })); // Default to allow all for local dev, adjust in prod
+app.use(cors({ origin: process.env.FRONTEND_URL || '*' })); // Allows all traffic if variable is missing
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
