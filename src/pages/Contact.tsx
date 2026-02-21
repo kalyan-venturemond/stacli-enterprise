@@ -77,7 +77,7 @@ const Contact = () => {
     useEffect(() => {
         const fetchGeo = async () => {
             try {
-                const res = await fetch('http://localhost:3002/api/geo?t=' + Date.now());
+                const res = await fetch('/api/geo?t=' + Date.now());
                 if (res.ok) {
                     const data = await res.json();
                     setGeoConfig({
@@ -160,7 +160,7 @@ const Contact = () => {
                 projectBrief: formData.projectBrief
             };
 
-            const response = await fetch("http://localhost:3002/api/email", {
+            const response = await fetch("/api/email", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload)
