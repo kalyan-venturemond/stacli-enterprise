@@ -29,7 +29,7 @@ const CaseStudyTemplate: React.FC<CaseStudyTemplateProps> = ({ data }) => {
     // SEO Technical Requirements
     // In a real Next.js app, use 'next/head'. Here in Vite, we update document.title manually.
     useEffect(() => {
-        document.title = data.seo.title;
+        document.title = "Stacli";
         // Find/Create meta description
         let metaDesc = document.querySelector('meta[name="description"]');
         if (!metaDesc) {
@@ -71,15 +71,25 @@ const CaseStudyTemplate: React.FC<CaseStudyTemplateProps> = ({ data }) => {
                             {data.hero.subtitle}
                         </p>
 
-                        <div className="w-full aspect-video rounded-xl overflow-hidden bg-muted/20 border border-white/10 flex items-center justify-center relative group">
-                            {/* Placeholder Image Block */}
-                            <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/5 to-black/50" />
-                            <div className="text-center p-6 z-10">
+                        <div className="w-full relative rounded-xl overflow-hidden shadow-2xl shadow-emerald-900/5">
+                            {/* Main Case Study Image */}
+                            <img
+                                src={`/src/assets/${data.hero.imageLabel}`}
+                                alt={data.hero.title}
+                                className="w-full h-auto block object-contain"
+                                onError={(e) => {
+                                    // Fallback if image not found
+                                    (e.target as HTMLImageElement).style.display = 'none';
+                                    (e.target as HTMLImageElement).nextElementSibling?.classList.remove('hidden');
+                                }}
+                            />
+                            {/* Placeholder fallback if image is missing */}
+                            <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/5 to-black/50 hidden flex-col items-center justify-center">
                                 <span className="block text-emerald-500/50 mb-2">
                                     <Globe className="w-12 h-12 mx-auto mb-4 opacity-50" />
                                 </span>
-                                <p className="text-muted-foreground font-mono text-sm uppercase tracking-widest">
-                                    {data.hero.imageLabel}
+                                <p className="text-muted-foreground font-mono text-sm uppercase tracking-widest px-4 text-center">
+                                    Missing Image: src/assets/{data.hero.imageLabel}
                                 </p>
                             </div>
                         </div>
@@ -148,13 +158,23 @@ const CaseStudyTemplate: React.FC<CaseStudyTemplateProps> = ({ data }) => {
                             </ul>
                         </div>
 
-                        <div className="w-full aspect-square md:aspect-[4/3] rounded-xl overflow-hidden bg-black/40 border border-white/10 flex items-center justify-center relative shadow-2xl shadow-emerald-900/10">
-                            {/* Placeholder Diagram */}
-                            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-emerald-900/20 to-transparent opacity-50" />
-                            <div className="text-center p-6 z-10">
+                        <div className="w-full relative group rounded-xl overflow-hidden shadow-2xl shadow-emerald-900/10">
+                            {/* Architecture Diagram Image */}
+                            <img
+                                src={`/src/assets/${data.solution.imageLabel}`}
+                                alt={`${data.hero.title} Architecture`}
+                                className="w-full h-auto block object-contain group-hover:scale-105 transition-transform duration-700"
+                                onError={(e) => {
+                                    // Fallback if image not found
+                                    (e.target as HTMLImageElement).style.display = 'none';
+                                    (e.target as HTMLImageElement).nextElementSibling?.classList.replace('hidden', 'flex');
+                                }}
+                            />
+                            {/* Placeholder fallback if image is missing */}
+                            <div className="hidden w-full aspect-video flex-col items-center justify-center bg-black/40 border border-white/10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-emerald-900/20 to-transparent">
                                 <Server className="w-16 h-16 mx-auto mb-6 text-emerald-500/40" />
-                                <p className="text-muted-foreground font-mono text-sm uppercase tracking-widest border border-dashed border-white/20 p-4 rounded bg-black/20">
-                                    {data.solution.imageLabel}
+                                <p className="text-muted-foreground font-mono text-sm uppercase tracking-widest border border-dashed border-white/20 p-4 rounded bg-black/20 text-center max-w-[80%] mx-auto">
+                                    Missing Image:<br />src/assets/{data.solution.imageLabel}
                                 </p>
                             </div>
                         </div>

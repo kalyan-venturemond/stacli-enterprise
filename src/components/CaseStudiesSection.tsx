@@ -21,7 +21,7 @@ const caseStudies = [
     {
         title: "Predictive Production & Operations Orchestration",
         summary: "Driving manufacturing efficiency with AI-powered automation.",
-        slug: "predictive-production-operations",
+        slug: "predictive-production-orchestration",
         icon: Factory,
         id: "03"
     },
