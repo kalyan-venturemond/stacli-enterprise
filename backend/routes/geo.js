@@ -50,8 +50,9 @@ router.get('/', async (req, res) => {
             // BACKUP 1: ipapi.co
             if (!country) {
                 try {
-                    console.log("Geo Debug - Trying IP Service 2: https://ipapi.co/json/");
-                    const backupRes = await fetch('https://ipapi.co/json/');
+                    let geoUrl = fetchIp ? `https://ipapi.co/${fetchIp}/json/` : 'https://ipapi.co/json/';
+                    console.log("Geo Debug - Trying IP Service 2: " + geoUrl);
+                    const backupRes = await fetch(geoUrl);
                     if (backupRes.ok) {
                         const backupData = await backupRes.json();
                         if (backupData.country_code) {
@@ -67,8 +68,9 @@ router.get('/', async (req, res) => {
             // BACKUP 2: ip-api.com
             if (!country) {
                 try {
-                    console.log("Geo Debug - Trying IP Service 3: http://ip-api.com/json/");
-                    const backup2Res = await fetch('http://ip-api.com/json/');
+                    let geoUrl = fetchIp ? `http://ip-api.com/json/${fetchIp}` : 'http://ip-api.com/json/';
+                    console.log("Geo Debug - Trying IP Service 3: " + geoUrl);
+                    const backup2Res = await fetch(geoUrl);
                     if (backup2Res.ok) {
                         const backup2Data = await backup2Res.json();
                         if (backup2Data.countryCode) {
