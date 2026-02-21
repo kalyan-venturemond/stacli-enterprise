@@ -45,21 +45,21 @@ const Approach = () => {
           className="absolute left-1/2 top-32 w-0.5 bg-gradient-to-b from-primary via-emerald-400 to-primary -translate-x-1/2 shadow-[0_0_15px_rgba(16,185,129,0.5)] origin-top hidden md:block z-0"
         />
 
-        <div className="flex flex-col gap-20 relative z-10">
+        <div className="flex flex-col gap-10 relative z-10">
           {steps.map((step, index) => {
             const isEven = index % 2 === 0;
             return (
               <motion.div
                 key={step.num}
-                initial={{ opacity: 0, y: 50, x: isEven ? -50 : 50 }}
+                initial={{ opacity: 0, y: 30, x: isEven ? -40 : 40 }}
                 whileInView={{ opacity: 1, y: 0, x: 0 }}
-                viewport={{ once: false, margin: "-100px" }}
-                transition={{ duration: 0.7, ease: "easeOut" }}
-                className={`relative flex items-center md:justify-between ${isEven ? 'flex-row' : 'flex-row-reverse'}`}
+                viewport={{ once: false, margin: "-50px" }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+                className={`relative flex items-center w-full justify-between ${isEven ? 'flex-row' : 'flex-row-reverse'}`}
               >
                 {/* Card Side */}
                 <div className="w-full md:w-[45%]">
-                  <div className="glass-card p-8 border border-white/10 rounded-2xl relative overflow-hidden group hover:border-primary/40 transition-all duration-500 hover:shadow-lg hover:shadow-primary/5">
+                  <div className="glass-card p-6 md:p-8 border border-white/10 rounded-2xl relative overflow-hidden group hover:border-primary/40 transition-all duration-500 hover:shadow-lg hover:shadow-primary/5">
 
                     {/* Number Watermark */}
                     <span className="font-display text-6xl font-bold text-white/[0.03] absolute top-2 right-4 select-none pointer-events-none transition-all duration-500 group-hover:text-primary/10 group-hover:scale-110 md:text-7xl">
@@ -70,7 +70,7 @@ const Approach = () => {
                       <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center mb-6 border border-white/10 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500">
                         <step.icon className="w-6 h-6 text-primary" />
                       </div>
-                      <h3 className="text-2xl font-display font-bold text-foreground mb-3 group-hover:text-primary transition-colors duration-300">
+                      <h3 className="text-xl md:text-2xl font-display font-bold text-foreground mb-3 group-hover:text-primary transition-colors duration-300">
                         {step.title}
                       </h3>
                       <p className="text-muted-foreground leading-relaxed text-sm md:text-base">

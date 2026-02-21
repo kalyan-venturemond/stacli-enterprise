@@ -12,6 +12,7 @@ import NotFound from "./pages/NotFound";
 const queryClient = new QueryClient();
 
 import CaseStudy from "./pages/CaseStudy";
+import ContactWidget from "./components/ContactWidget";
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -19,6 +20,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <ContactWidget />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />

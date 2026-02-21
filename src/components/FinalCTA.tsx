@@ -25,7 +25,7 @@ const FinalCTA = () => {
         <RevealOnScroll delay={0.2}>
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
             <button
-              onClick={() => window.open("https://cal.com/venture-mond-jsjuux/stacli-discovery-call-15-or-30-minutes", "_blank")}
+              onClick={() => window.location.href = "https://cal.com/venture-mond-jsjuux/stacli-discovery-call-15-or-30-minutes"}
               className="bg-primary text-primary-foreground px-10 py-4 rounded-lg text-base font-semibold hover:opacity-90 transition-opacity w-full sm:w-auto"
             >
               Book a Strategy Session
