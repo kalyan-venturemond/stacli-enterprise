@@ -16,12 +16,17 @@ router.get('/', async (req, res) => {
             // Determine Client IP
             const forwardedFor = req.headers['x-forwarded-for'];
             const realIp = req.headers['x-real-ip'];
-            const clientIp = forwardedFor ? forwardedFor.split(',')[0].trim() : (realIp || req.ip);
+            let clientIp = forwardedFor ? forwardedFor.split(',')[0].trim() : (realIp || req.ip);
+
+            // Strip IPv4-mapped IPv6 prefix so APIs don't get confused
+            if (clientIp && clientIp.startsWith('::ffff:')) {
+                clientIp = clientIp.substring(7);
+            }
 
             console.log("Geo Debug - Client IP:", clientIp || "Not Detected");
 
             let fetchIp = clientIp || '';
-            if (clientIp === '::1' || clientIp === '127.0.0.1' || clientIp.startsWith('192.168.') || clientIp.startsWith('10.')) {
+            if (fetchIp === '::1' || fetchIp === '127.0.0.1' || fetchIp.startsWith('192.168.') || fetchIp.startsWith('10.')) {
                 fetchIp = ''; // Use empty string to let IP APIs detect the server's public IP
             }
 
