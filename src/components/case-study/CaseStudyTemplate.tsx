@@ -74,7 +74,7 @@ const CaseStudyTemplate: React.FC<CaseStudyTemplateProps> = ({ data }) => {
                         <div className="w-full relative rounded-xl overflow-hidden shadow-2xl shadow-emerald-900/5">
                             {/* Main Case Study Image */}
                             <img
-                                src={`/src/assets/${data.hero.imageLabel}`}
+                                src={`/${data.hero.imageLabel}`}
                                 alt={data.hero.title}
                                 className="w-full h-auto block object-contain"
                                 onError={(e) => {
@@ -161,7 +161,7 @@ const CaseStudyTemplate: React.FC<CaseStudyTemplateProps> = ({ data }) => {
                         <div className="w-full relative group rounded-xl overflow-hidden shadow-2xl shadow-emerald-900/10">
                             {/* Architecture Diagram Image */}
                             <img
-                                src={`/src/assets/${data.solution.imageLabel}`}
+                                src={`/${data.solution.imageLabel}`}
                                 alt={`${data.hero.title} Architecture`}
                                 className="w-full h-auto block object-contain group-hover:scale-105 transition-transform duration-700"
                                 onError={(e) => {
