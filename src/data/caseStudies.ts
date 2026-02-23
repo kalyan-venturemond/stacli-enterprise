@@ -44,7 +44,7 @@ export const caseStudies: CaseStudy[] = [
             title: "Autonomous Logistics Coordination",
             subtitle: "Eliminating manual dispatch inefficiencies with AI-driven orchestration",
             tags: ["Logistics", "Autonomous Agents", "Supply Chain"],
-            imageLabel: "case-studies/casestudy1.png"
+            imageLabel: "case-studies/casestudy1.webp"
         },
         clientContext: {
             content: [
@@ -70,7 +70,7 @@ export const caseStudies: CaseStudy[] = [
                 "The architecture integrated directly with the client's ERP, TMS, and real-time GPS tracking systems, enabling sub-second routing and carrier decisions.",
                 "The system was built on an event-driven architecture to ensure high availability and scalable coordination across all operating regions."
             ],
-            imageLabel: "case-studies/casestudy1-architecture.png",
+            imageLabel: "case-studies/casestudy1-architecture.webp",
             features: [
                 "AI Dispatch Agents for predictive route and carrier optimization",
                 "Real-time data pipelines for shipment tracking and SLA monitoring",
@@ -121,7 +121,7 @@ export const caseStudies: CaseStudy[] = [
             title: "Intelligent Clinical Workflow Automation",
             subtitle: "Transforming diagnostic operations with AI-driven orchestration",
             tags: ["Healthcare", "Diagnostics", "Workflow Automation"],
-            imageLabel: "case-studies/casestudy2.png"
+            imageLabel: "case-studies/casestudy2.webp"
         },
         clientContext: {
             content: [
@@ -147,7 +147,7 @@ export const caseStudies: CaseStudy[] = [
                 "The system integrated seamlessly with existing HMS, LIS (Laboratory Information Systems), and radiology platforms, enabling real-time data synchronization and intelligent task routing.",
                 "The architecture was built with secure, HIPAA-aligned data handling principles and high-availability infrastructure to ensure reliability across locations."
             ],
-            imageLabel: "case-studies/casestudy2-architecture.png",
+            imageLabel: "case-studies/casestudy2-architecture.webp",
             features: [
                 "AI workflow agents for patient intake, scheduling, and diagnostic coordination",
                 "Automated compliance reporting and documentation validation",
@@ -198,7 +198,7 @@ export const caseStudies: CaseStudy[] = [
             title: "Predictive Production & Operations Orchestration",
             subtitle: "Driving manufacturing efficiency with AI-powered automation",
             tags: ["Manufacturing", "Predictive Maintenance", "Operations"],
-            imageLabel: "case-studies/casestudy3.png"
+            imageLabel: "case-studies/casestudy3.webp"
         },
         clientContext: {
             content: [
@@ -224,7 +224,7 @@ export const caseStudies: CaseStudy[] = [
                 "The system integrated directly with the client's ERP, MES (Manufacturing Execution System), and IoT-enabled machine telemetry streams to enable predictive and autonomous decision-making.",
                 "The architecture was designed as an event-driven system capable of adapting production schedules in real time based on demand shifts, machine availability, and material constraints."
             ],
-            imageLabel: "case-studies/casestudy3-architecture.png",
+            imageLabel: "case-studies/casestudy3-architecture.webp",
             features: [
                 "AI agents for dynamic production scheduling optimization",
                 "Predictive maintenance models using machine telemetry data",
@@ -275,7 +275,7 @@ export const caseStudies: CaseStudy[] = [
             title: "Intelligent Risk & Compliance Automation",
             subtitle: "Modernizing financial operations with AI-driven decision systems",
             tags: ["Financial Services", "Risk Management", "Compliance"],
-            imageLabel: "case-studies/casestudy4.png"
+            imageLabel: "case-studies/casestudy4.webp"
         },
         clientContext: {
             content: [
@@ -301,7 +301,7 @@ export const caseStudies: CaseStudy[] = [
                 "The system integrated seamlessly with the institution's core banking platform, CRM, and third-party verification services, enabling real-time decision-making and automated escalation.",
                 "The architecture was built with secure, encrypted data pipelines and high-availability infrastructure to ensure reliability and audit-readiness."
             ],
-            imageLabel: "case-studies/casestudy4-architecture.png",
+            imageLabel: "case-studies/casestudy4-architecture.webp",
             features: [
                 "AI-driven risk scoring models for dynamic credit and transaction assessment",
                 "Automated KYC verification workflows with document validation",
@@ -352,7 +352,7 @@ export const caseStudies: CaseStudy[] = [
             title: "Intelligent Learning Orchestration Platform",
             subtitle: "Scaling content delivery and learner engagement with AI automation",
             tags: ["EdTech", "Learning Systems", "Engagement Automation"],
-            imageLabel: "case-studies/casestudy5.png"
+            imageLabel: "case-studies/casestudy5.webp"
         },
         clientContext: {
             content: [
@@ -378,7 +378,7 @@ export const caseStudies: CaseStudy[] = [
                 "The system integrated with the platform’s LMS, CRM, payment systems, and marketing tools to enable real-time learner lifecycle tracking.",
                 "The architecture was built on an event-driven system capable of adapting learning pathways based on individual student behavior and performance signals."
             ],
-            imageLabel: "case-studies/casestudy5-architecture.png",
+            imageLabel: "case-studies/casestudy5-architecture.webp",
             features: [
                 "AI content orchestration agents for automated publishing and updates",
                 "Real-time learner analytics pipelines across LMS and CRM",
@@ -429,7 +429,7 @@ export const caseStudies: CaseStudy[] = [
             title: "Autonomous Service Operations Platform",
             subtitle: "Streamlining client delivery and revenue workflows with AI orchestration",
             tags: ["Service Businesses", "Operations", "Revenue Workflows"],
-            imageLabel: "case-studies/casestudy6.png"
+            imageLabel: "case-studies/casestudy6.webp"
         },
         clientContext: {
             content: [
@@ -455,7 +455,7 @@ export const caseStudies: CaseStudy[] = [
                 "The system integrated CRM, project management tools, accounting software, and internal communication systems to enable real-time operational visibility.",
                 "The architecture was event-driven, enabling seamless coordination between sales, operations, and finance functions."
             ],
-            imageLabel: "case-studies/casestudy6-architecture.png",
+            imageLabel: "case-studies/casestudy6-architecture.webp",
             features: [
                 "AI workflow agents for automated client onboarding and documentation validation",
                 "Real-time revenue and resource allocation dashboards",
@@ -506,7 +506,7 @@ export const caseStudies: CaseStudy[] = [
             title: "AI-Native Infrastructure for High-Growth Startups",
             subtitle: "Building scalable operating systems for product-led companies",
             tags: ["Tech Startups", "Infrastructure", "Scale"],
-            imageLabel: "case-studies/casestudy7.png"
+            imageLabel: "case-studies/casestudy7.webp"
         },
         clientContext: {
             content: [
@@ -532,7 +532,7 @@ export const caseStudies: CaseStudy[] = [
                 "The system unified product analytics, operational automation, and infrastructure orchestration into a single intelligent framework.",
                 "The architecture was cloud-native, resilient, and built to handle exponential growth without compromising performance."
             ],
-            imageLabel: "case-studies/casestudy7-architecture.png",
+            imageLabel: "case-studies/casestudy7-architecture.webp",
             features: [
                 "Microservices-based backend restructuring for scale readiness",
                 "AI-driven onboarding and support automation agents",
