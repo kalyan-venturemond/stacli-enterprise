@@ -443,7 +443,7 @@ const Contact = () => {
                                         </div>
                                         <div>
                                             <p className="text-sm text-muted-foreground mb-1">Follow us</p>
-                                            <a href="#" className="text-foreground hover:text-primary transition-colors font-medium">
+                                            <a href="https://www.linkedin.com/company/staclisystems/" target="_blank" rel="noopener noreferrer" className="text-foreground hover:text-primary transition-colors font-medium">
                                                 LinkedIn / Stacli
                                             </a>
                                         </div>

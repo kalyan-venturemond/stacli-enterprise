@@ -117,7 +117,7 @@ const Footer = () => {
                   </p>
                 </div>
                 <div className="flex gap-4 pt-2">
-                  <div className="text-primary opacity-60 cursor-default"><Linkedin size={20} /></div>
+                  <a href="https://www.linkedin.com/company/staclisystems/" target="_blank" rel="noopener noreferrer" className="text-primary opacity-60 hover:opacity-100 transition-opacity"><Linkedin size={20} /></a>
                   <div className="text-primary opacity-60 cursor-default"><Instagram size={20} /></div>
                   <div className="text-primary opacity-60 cursor-default"><Facebook size={20} /></div>
                   <div className="text-primary opacity-60 cursor-default"><Youtube size={20} /></div>
